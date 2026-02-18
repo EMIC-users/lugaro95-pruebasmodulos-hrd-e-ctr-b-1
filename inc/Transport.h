@@ -1,6 +1,8 @@
 #ifndef _TRANSPORT_H_
 #define _TRANSPORT_H_
 
+#include <xc.h>
+
 #define		SENSOR_TIMEOUT	50
 #define		FrameLf		'\n'
 #define     BufferSize      1024
