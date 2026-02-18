@@ -183,7 +183,7 @@ void poll_sensors(void)			// send permission to talk
 				received_ID = 0;
 
 			}
-			if (timeStamp - last_poll > SENSOR_TIMEOUT)	// if last sensor don't respond on time
+			if (getSystemMilis() - last_poll > SENSOR_TIMEOUT)	// if last sensor don't respond on time
 			{
 				timeout = 1;
 			}
@@ -195,7 +195,7 @@ void poll_sensors(void)			// send permission to talk
 				UART1_OUT_push(0);
 				UART1_OUT_push(sensor_polled);
 				UART1_OUT_push(FrameLf);
-				last_poll = timeStamp;
+				last_poll = getSystemMilis();
 			}
 		}
 	}
