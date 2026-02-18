@@ -27,8 +27,6 @@
       <itemPath>I2C2.c</itemPath>
       <itemPath>I2C2_driver.c</itemPath>
       <itemPath>EMICBus.c</itemPath>
-      <itemPath>RTCC.c</itemPath>
-      <itemPath>Alarm.c</itemPath>
       <itemPath>main.c</itemPath>
       <itemPath>userFncFile.c</itemPath>
     </logicalFolder>

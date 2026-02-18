@@ -9,8 +9,6 @@
 #include "inc/Transport.h"
 #include "inc/EmicFieldBus.h"
 #include "inc/EMICBus.h"
-#include "inc/RTCC.h"
-#include "inc/Alarm.h"
 #include "inc/system.h"
 #include "inc/userFncFile.h"
 
@@ -25,8 +23,6 @@ int main(void)
 	LEDs_Led3_init();
 	init_EMICfb();
 	EMICBus_init();
-	RTCC_Init();
-	initAlarms();
 	onReset();
 	do
 	{
@@ -37,7 +33,6 @@ int main(void)
 		poll_sensors();
 		poll_EMICfb();
 		poll_EMICBus();
-		pollAlarms();
 	}
 	while(1);
 }

@@ -13,8 +13,8 @@
 
 /* Function Prototypes */
 void onReset();
-void eI2C(char* tag, const streamIn_t* const msg);
 void emicFBe(char* TAG, const streamIn_t* const Message);
+void eI2C(char* tag, const streamIn_t* const msg);
 
 #endif /* USERFNCFILE_H */
 

@@ -11,8 +11,6 @@
 #include "inc/Transport.h"
 #include "inc/EmicFieldBus.h"
 #include "inc/EMICBus.h"
-#include "inc/RTCC.h"
-#include "inc/Alarm.h"
 
 void onReset()
 {
@@ -22,16 +20,16 @@ void onReset()
 }
 
 
-void eI2C(char* tag, const streamIn_t* const msg)
+void emicFBe(char* TAG, const streamIn_t* const Message)
 {
-    emicFBp("$s\t$r", tag, msg);
+    pI2C("$s\t$r", TAG, Message);
     LEDs_Led1_blink(125, 250, 1);
 }
 
 
-void emicFBe(char* TAG, const streamIn_t* const Message)
+void eI2C(char* tag, const streamIn_t* const msg)
 {
-    pI2C("$s\t$r", TAG, Message);
+    emicFBp("$s\t$r", tag, msg);
     LEDs_Led2_blink(125, 250, 1);
 }
 
