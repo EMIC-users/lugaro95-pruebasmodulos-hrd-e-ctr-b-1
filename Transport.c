@@ -2,7 +2,7 @@
 #include "inc/gpio.h"
 #include "inc/UART1.h"
 #include "inc/stream.h"
-#include "inc/timer.h"
+#include "inc/systemTimer.h"
 
 unsigned char fieldBusInDataBuffer[BufferSize];
 unsigned char fieldBusOutDataBuffer[BufferSize];
