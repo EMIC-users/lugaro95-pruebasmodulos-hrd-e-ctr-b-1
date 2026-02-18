@@ -89,33 +89,30 @@ void poll_fieldBusTransport()
 	if (Transport_frame_count > 0)
 	{
 		Transport_frame_count--;
+		streamOpenReadFrame(&UART1_InStream);
 		uint8_t data = UART1_IN_pop();
 
 		if(data==0) 						//If  1st data is zero, second must be my ID for me to talk, else is not my turn yet
 		{
-			data = UART1_IN_pop();
-			if (data == My_ID)
-			{
-				if (fieldBusOutStream.frame_count > 0)
-				{
-					send_fbTransport();
-				}
-				else
-				{
-					UART1_OUT_push(My_ID);
-					UART1_OUT_push(FrameLf);
-					return;
-				}
-			}
-			UART1_IN_pop();
+            if(UART1_InStream.data_count_sal)
+            {
+                data = UART1_IN_pop();
+                if (data == My_ID)
+                {
+                    if (fieldBusOutStream.frame_count > 0)
+                    {
+                    	send_fbTransport();
+                    }
+                    else
+                    {
+                    	UART1_OUT_push(My_ID);
+                    	UART1_OUT_push(FrameLf);
+                    }
+                }
+				empty_buffer();
+            }
 			return;
 		}
-
-		if(data == FrameLf)
-		{
-			return;
-		}
-
 		received_ID = data;
 
 		if (received_ID == My_ID)			//If first data is my ID, discard message
@@ -123,12 +120,10 @@ void poll_fieldBusTransport()
 			empty_buffer();
 			return;
 		}
-
-		data = UART1_IN_pop();
-		while(data != FrameLf) //else store the message on internal buffer (sends from UART to IN buffer)
+		while(UART1_InStream.data_count_sal) //else store the message on internal buffer (sends from UART to IN buffer)
 		{
-			streamPush(&fieldBusInStream, data);
 			data = UART1_IN_pop();
+			streamPush(&fieldBusInStream, data);
 		}
 		if (fieldBusInStream.data_count_entr)
 		{
@@ -157,13 +152,13 @@ void send_fbTransport(void)				//sends from OUT buffer to UART
     }
 }
 
-void empty_buffer(void)   //empy UART buffer
+void empty_buffer(void)   //empty UART buffer
 {
 	uint8_t d;
-	while(d != FrameLf)
+	while(UART1_InStream.data_count_sal)
 	{
 		d = UART1_IN_pop();
-	};
+	}
 	return;
 }
 
