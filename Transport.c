@@ -89,12 +89,11 @@ void poll_fieldBusTransport()
 	if (Transport_frame_count > 0)
 	{
 		Transport_frame_count--;
-		streamOpenReadFrame(&UART1_InStream);
 		uint8_t data = UART1_IN_pop();
 
 		if(data==0) 						//If  1st data is zero, second must be my ID for me to talk, else is not my turn yet
 		{
-            if(UART1_InStream.data_count_sal)
+            if(UART1_IN_count())
             {
                 data = UART1_IN_pop();
                 if (data == My_ID)
@@ -120,9 +119,10 @@ void poll_fieldBusTransport()
 			empty_buffer();
 			return;
 		}
-		while(UART1_InStream.data_count_sal) //else store the message on internal buffer (sends from UART to IN buffer)
+		while(UART1_IN_count()) //else store the message on internal buffer (sends from UART to IN buffer)
 		{
 			data = UART1_IN_pop();
+			if (data == FrameLf) break;
 			streamPush(&fieldBusInStream, data);
 		}
 		if (fieldBusInStream.data_count_entr)

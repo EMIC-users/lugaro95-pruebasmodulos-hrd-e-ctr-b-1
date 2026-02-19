@@ -2,6 +2,7 @@
 #define _TRANSPORT_H_
 
 #include <xc.h>
+#include "inc/stream.h"
 
 #define		SENSOR_TIMEOUT	50
 #define		FrameLf		'\n'
