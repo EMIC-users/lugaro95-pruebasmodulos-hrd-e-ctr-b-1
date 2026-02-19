@@ -1,7 +1,6 @@
 #include "inc/Transport.h"
 #include "inc/gpio.h"
 #include "inc/UART1.h"
-#include "inc/stream.h"
 #include "inc/systemTimer.h"
 
 unsigned char fieldBusInDataBuffer[BufferSize];
