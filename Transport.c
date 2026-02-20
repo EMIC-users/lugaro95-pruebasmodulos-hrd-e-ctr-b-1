@@ -154,7 +154,7 @@ void send_fbTransport(void)				//sends from OUT buffer to UART
 void empty_buffer(void)   //empty UART buffer
 {
 	uint8_t d;
-	while(UART1_InStream.data_count_sal)
+	while(UART1_IN_count())
 	{
 		d = UART1_IN_pop();
 	}
